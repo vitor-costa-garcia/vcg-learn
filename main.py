@@ -1,0 +1,12 @@
+from vgclearn import SVD
+import numpy as np
+
+
+
+if __name__ == "__main__":
+
+	x = np.array([[1,2],[3,4]])
+	print(x)
+	svd = SVD()
+	y = svd.fit(x, 0)
+	print(y)
