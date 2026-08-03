@@ -90,7 +90,62 @@ class TestSVD(BaseTest):
 		assert np.array_equal(svd_flip_eigval_3, A_result_3)
 
 	def test_flip_eigvec(self, svd):
-		pass
+		# Rectangular matrix
+		rect_A = np.array([
+			[1, 2, 3 ],
+			[2, 4, 6 ],
+			[3, 6, 9 ],
+			[4, 8, 12]
+		], dtype=float)
+
+		rect_A_result = np.array([
+			[3,  2, 1],
+			[6,  4, 2],
+			[9,  6, 3],
+			[12, 8, 4]
+		], dtype=float)
+
+		svd_flip_eigvec_rect_A = svd._flip_eigvec(rect_A)
+
+		assert np.array_equal(svd_flip_eigvec_rect_A, rect_A_result)
+
+		#Square matrix
+		sqr_A = np.array([
+			[1, 2, 3],
+			[4, 5, 6],
+			[7, 8, 9]
+		])
+
+		sqr_A_result = np.array([
+			[3, 2, 1],
+			[6, 5, 4],
+			[9, 8, 7]
+		])
+
+		svd_flip_eigvec_sqr_A = svd._flip_eigvec(sqr_A)
+
+		assert np.array_equal(svd_flip_eigvec_sqr_A, sqr_A_result)
+
+		#1-column matrix
+		col_A = np.array([[4],[5],[6]])
+		col_A_result = np.array([[4],[5],[6]])
+
+		svd_flip_eigvec_col_A = svd._flip_eigvec(col_A)
+
+		assert np.array_equal(svd_flip_eigvec_col_A, col_A_result)
+
+		#1D matrix
+		with pytest.raises(np.exceptions.AxisError):
+			one_A = np.array([1])
+
+			svd_flip_eigvec_one_A = svd._flip_eigvec(one_A)
+
+
+		#0D matrix
+		with pytest.raises(np.exceptions.AxisError):
+			empty_A = np.array([])
+
+			svd_flip_eigvec_empty_A = svd._flip_eigvec(empty_A)
 
 	def test_clip_eigval(self, svd):
 		pass
