@@ -1,6 +1,9 @@
 from abc import ABC, abstractmethod
 
 class BaseEstimator(ABC):
+	"""
+	BaseEstimator class defines a default interface that estimators must follow in this framework
+	"""
 	def __init__(self):
 		pass
 

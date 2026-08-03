@@ -1,12 +1,17 @@
-from vgclearn import SVD
+from vcglearn.decomposition import SVD
 import numpy as np
 
 
 
 if __name__ == "__main__":
 
-	x = np.array([[1,2],[3,4]])
-	print(x)
+	A = np.array([
+	    [1, 2, 3],
+	    [2, 4, 6],
+	    [3, 6, 9],
+	    [4, 8, 12]
+	], dtype=float)
+	print("Initial matrix:\n", A, "\n")
 	svd = SVD()
-	y = svd.fit(x, 0)
+	y = svd.fit_predict(A, 0)
 	print(y)
