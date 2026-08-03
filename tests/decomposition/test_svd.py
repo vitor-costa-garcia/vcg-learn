@@ -13,6 +13,7 @@ class TestSVD(BaseTest):
 	test_area = "decomposition"
 
 	def test_compute_ata(self, svd):
+		# Full-rank matrix
 		A = np.array([
 			[1, 2],
 			[3, 4]
@@ -23,10 +24,11 @@ class TestSVD(BaseTest):
 			[14, 20]
 		])
 
-		ata_A = svd._compute_ata(A)
+		svd_ata_A = svd._compute_ata(A)
 
-		assert np.array_equal(ata_A, A_result)
+		assert np.array_equal(svd_ata_A, A_result)
 
+		# Rank-deficient matrix
 		rank_def_A = np.array([
 			[1, 2, 3 ],
 			[2, 4, 6 ],
@@ -35,7 +37,7 @@ class TestSVD(BaseTest):
 		], dtype=float)
 
 		rank_def_A_result = np.array([
-			[30, 60, 90  ],
+			[30, 60,  90 ],
 			[60, 120, 180],
 			[90, 180, 270]
 		], dtype=float)
@@ -43,6 +45,24 @@ class TestSVD(BaseTest):
 		svd_ata_rank_def_A = svd._compute_ata(rank_def_A)
 
 		assert np.array_equal(svd_ata_rank_def_A, rank_def_A_result)
+
+		#Zero matrix
+		zeros_A = np.zeros((2, 3))
+		zeros_A_result = np.zeros((3, 3))
+
+		svd_ata_zeros_A = svd._compute_ata(zeros_A)
+
+		assert np.array_equal(svd_ata_zeros_A, zeros_A_result)
+
+		#Empty matrix
+		empty_A = np.array([])
+		empty_A_result = 0.0 #Sum of 0 elements is 0
+
+		svd_ata_empty_A = svd._compute_ata(empty_A)
+		print(svd_ata_empty_A)
+
+		assert np.array_equal(svd_ata_empty_A, empty_A_result)
+
 
 	def test_flip_eigval(self, svd):
 		# Size N array

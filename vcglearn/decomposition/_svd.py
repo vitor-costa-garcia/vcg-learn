@@ -102,4 +102,3 @@ class SVD(BaseEstimator):
 	# Computing diagonal singular vector matrix from singular values A
 	def _compute_sigma(self, A):
 		return np.diag(A)
-
