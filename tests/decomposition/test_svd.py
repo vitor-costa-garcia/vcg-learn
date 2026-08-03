@@ -1,5 +1,7 @@
-from vcglearn import SVD
+import numpy as np
 import pytest
+
+from vcglearn import SVD
 from tests.core import BaseTest
 
 @pytest.fixture
@@ -23,7 +25,7 @@ class TestSVD(BaseTest):
 
 		ata_A = svd._compute_ata(A)
 
-		assert ata_A == A_result
+		assert np.array_equal(ata_A, A_result)
 
 		rank_def_A = np.array([
 			[1, 2, 3 ],
@@ -40,7 +42,7 @@ class TestSVD(BaseTest):
 
 		ata_rank_def_A = svd._compute_ata(rank_def_A)
 
-		assert ata_rank_def_A == rank_def_A_result
+		assert np.array_equal(ata_rank_def_A, rank_def_A_result)
 
 	def test_flip_eigval(self, svd):
 		pass
