@@ -24,7 +24,7 @@ python -m pytest
 
 ```python
 from vcglearn.decomposition import SVD
-import numpy as numpy
+import numpy as np
 
 A = np.array([
 	[3, 1],
