@@ -1,11 +1,10 @@
 # Singular Vector Decomposition
 ## vcglearn.decomposition.SVD 
-
+---
 ### Description
 SVD (Singular Vector Decomposition) is a matrix decomposition method used to transform a NxM matrix into a product of 2 orthogonal matrices and one diagonal singular values matrix.
-
+---
 ### Methods
-
  - fit(X, y = None): Fit method performs the SVD on the matrix X and saves the result.
  	- X: Target matrix that will be used in SVD
  	- y: Not used
@@ -17,10 +16,26 @@ SVD (Singular Vector Decomposition) is a matrix decomposition method used to tra
  - fit_predict(X, y = None) -> U, D, V^T: Performs and returns the resul of the SVD.
  	- X: Target matrix that will be used in SVD
  	- y: Not used
-
+---
 ### Attributes
 
  - self._singval: Singular values in ascending order.
  - self._U: Orthonormal eigenvectors of A^TA.
  - self._sigma: Diagonal singular value matrix.
  - self._V: Orthonormal eigenvectors of AA^T
+---
+### Examples
+
+```python
+from vcglearn.decomposition import SVD
+import numpy as numpy
+
+A = np.array([
+	[3, 1],
+	[1, 2],
+	[2, 1],
+], dtype=float)
+
+svd = SVD()
+u, d, v = svd.fit_predict(A)
+```
