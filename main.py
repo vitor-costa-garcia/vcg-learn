@@ -15,5 +15,8 @@ if __name__ == "__main__":
 	print(A.T @ A)
 	print("Initial matrix:\n", A, "\n")
 	svd = SVD()
-	y = svd.fit_predict(A, 0)
-	print(y)
+	U, sigma, Vt = svd.fit_predict(A, 0)
+	print(U, sigma, Vt)
+
+	A_reconstructed = U @ sigma @ Vt
+	print("Reconstructed matrix:\n", A_reconstructed, "\n")
