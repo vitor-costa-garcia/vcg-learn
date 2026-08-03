@@ -50,10 +50,22 @@ class TestSVD(BaseTest):
 	def test_flip_eigvec(self, svd):
 		pass
 
+	def test_clip_eigval(self, svd):
+		pass
+
 	def test_compute_eigv(self, svd):
 		pass
 
 	def test_compute_singv(self, svd):
+		pass
+
+	def test_tol_singv(self, svd):
+		pass
+
+	def test_clip_v(self, svd):
+		pass
+
+	def test_compute_u(self, svd):
 		pass
 
 	def test_compute_sigma(self, svd):
