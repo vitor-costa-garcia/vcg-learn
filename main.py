@@ -11,6 +11,8 @@ if __name__ == "__main__":
 	    [3, 6, 9],
 	    [4, 8, 12]
 	], dtype=float)
+
+	print(A.T @ A)
 	print("Initial matrix:\n", A, "\n")
 	svd = SVD()
 	y = svd.fit_predict(A, 0)
