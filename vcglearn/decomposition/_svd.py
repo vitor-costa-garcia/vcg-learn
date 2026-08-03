@@ -75,6 +75,7 @@ class SVD(BaseEstimator):
 	def _flip_eigvec(self, A):
 		return np.flip(A, axis=1)
 
+	# Clipping negative precision error 
 	def _clip_eigval(self, A):
 		return np.clip(A, 0, None)
 

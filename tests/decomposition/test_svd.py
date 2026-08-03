@@ -40,12 +40,34 @@ class TestSVD(BaseTest):
 			[90, 180, 270]
 		], dtype=float)
 
-		ata_rank_def_A = svd._compute_ata(rank_def_A)
+		svd_ata_rank_def_A = svd._compute_ata(rank_def_A)
 
-		assert np.array_equal(ata_rank_def_A, rank_def_A_result)
+		assert np.array_equal(svd_ata_rank_def_A, rank_def_A_result)
 
 	def test_flip_eigval(self, svd):
-		pass
+		# Size N array
+		A_1 = np.array([1,2,3,4,5,6])
+		A_result_1 = np.array([6,5,4,3,2,1])
+
+		svd_flip_eigval_1 = svd._flip_eigval(A_1)
+
+		assert np.array_equal(svd_flip_eigval_1, A_result_1)
+
+		# Size 1 array
+		A_2 = np.array([1])
+		A_result_2 = np.array([1])
+
+		svd_flip_eigval_2 = svd._flip_eigval(A_2)
+
+		assert np.array_equal(svd_flip_eigval_2, A_result_2)
+
+		# Empty array
+		A_3 = np.array([])
+		A_result_3 = np.array([])
+
+		svd_flip_eigval_3 = svd._flip_eigval(A_3)
+
+		assert np.array_equal(svd_flip_eigval_3, A_result_3)
 
 	def test_flip_eigvec(self, svd):
 		pass
