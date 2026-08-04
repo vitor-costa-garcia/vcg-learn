@@ -1,9 +1,14 @@
 # QR Decomposition
 ## vcglearn.decomposition.QRDecomposition
+
 ---
+
 ### Description
+
 QR Decomposition is a matrix decomposition method used to transform a NxM matrix into a product a orthogonal matrix Q and a upper triangle matrix R.
+
 ---
+
 ### Methods
  - fit(X, y = None): Fit method performs the QR decomposition on the matrix X and saves the result.
  	- X: Target matrix that will be used in QR decomposition
@@ -16,12 +21,15 @@ QR Decomposition is a matrix decomposition method used to transform a NxM matrix
  - fit_transform(X, y = None) -> Q, R: Performs and returns the resul of the QR decomposition.
  	- X: Target matrix that will be used in QR decomposition
  	- y: Not used
+
 ---
+
 ### Attributes
 
  - self._Q: Orthogonal matrix Q that satisfies A = QR.
  - self._R: Upper right triangle matrix R (R = Q^TA).
 ---
+
 ### Examples
 
 ```python
