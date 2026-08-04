@@ -8,7 +8,13 @@ class QRMethod(ABC):
 		pass
 
 class GramSchmidt(QRMethod):
+	"""
+	Gram Schmidt process is a method of building an orthonormal basis from a set of vectors
+	"""
 	def decompose(self, X):
+		"""
+		Returns a orthonormal basis based off the columns of X
+		"""
 		X_c = X.copy()
 		m, n = X.shape
 
@@ -30,14 +36,64 @@ class GramSchmidt(QRMethod):
 		X_norms = np.linalg.norm(X_c, axis=0)
 		Q = X_c / X_norms
 
-		return Q
+		return Q, Q.T @ X
 
 class Householder(QRMethod):
+	"""
+	Householder transformations take a vector and reflects it about some hyperplane or plane.
+	"""
 	def decompose(self, X):
-		pass
+		m, n = X.shape
+
+		#Right upper triangle matrix R
+		R = X.astype(float).copy()
+
+		# Orthogonal matrix Q that satisfies A=QR
+		Q = np.identity(m)
+
+		#We use min(m, n) to make it valid for rectangular matrices.
+		for i in range(min(m, n)):
+			# Calculate H_i
+			x = R[i:, i]
+			h_small = self._calculate_h(x)
+
+			#Embbed small H_i into identity matrix to makethe product of matrices valid
+			h_i = np.identity(m)
+			h_i[i:, i:] = h_small
+
+			#Multiply R and Q
+			R = h_i @ R
+			Q = Q @ h_i
+
+		return Q, R
+
+	def _calculate_h(self, x) -> np.array:
+		m = x.shape[0]
+
+		e_1 = np.zeros(m)
+		e_1[0] = 1.
+
+		alpha = np.linalg.norm(x)
+
+		#u vector
+		sign = 1.0 if x[0] >= 0 else -1.0
+		u = x + sign * np.linalg.norm(x) * e_1
+		u_norm = np.linalg.norm(u)
+
+		#v vector
+		v = u / u_norm
+		vtv = np.outer(v, v)
+
+		# Householder transformation
+		return np.identity(m) - 2 * vtv
 
 class QRDecomposition(BaseTransformer):
-	def __init__(self, method: QRMethod = GramSchmidt()):
+	"""
+	QR Decomposition is a popular decomposition in linear algebra that represents an NxM matrix
+	into a product of an orthogonal matrix Q that satisfies A = QR and a upper right triangle matrix R
+	(R = Q^TA). For computing Q, one can use GramSchmidt or Householder.
+	"""
+	def __init__(self, method: QRMethod = Householder()):
 		self._computed = False
 		self._method = method
 
@@ -46,10 +102,7 @@ class QRDecomposition(BaseTransformer):
 		self._computed = False
 
 		# Using QRMethod to calculate Q
-		self._Q = self._calculate_q(X)
-
-		# Calculate R = Q^TA
-		self._R = self._calculate_r(self._Q, X)
+		self._Q, self._R = self._calculate_qr(X)
 
 		#Allow get
 		self._computed = True
@@ -59,9 +112,5 @@ class QRDecomposition(BaseTransformer):
 			return self._Q, self._R
 
 	#Computing orthogonal matrix that satisfies A = QR
-	def _calculate_q(self, X):
+	def _calculate_qr(self, X):
 		return self._method.decompose(X)
-
-	#Computing upper triangular matrix R
-	def _calculate_r(self, Q, A):
-		return Q.T @ A
