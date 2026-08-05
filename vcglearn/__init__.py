@@ -1,8 +1,13 @@
-from .decomposition import SVD, PCA, EigDecomposition, QRDecomposition
+from .decomposition import *
+from .utils import *
 
 __all__ = [
+    # decomposition
     "SVD",
     "PCA",
     "EigDecomposition",
-    "QRDecomposition"
+    "QRDecomposition", "GramSchmidt", "Householder"
+
+    # utils
+    "invert"
 ]
