@@ -1,4 +1,3 @@
-```yaml
 name: Pytest
 
 on:
@@ -27,4 +26,3 @@ jobs:
 
       - name: Run tests
         run: pytest
-```
