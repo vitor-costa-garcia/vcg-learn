@@ -36,3 +36,15 @@ class BaseTransformer(BaseClass):
 	def fit_transform(self, X, y=None):
 		self.fit(X, y)
 		return self.transform(X, y)
+
+class BaseOptimizer(ABC):
+	"""
+	BaseOptimizer class defines a default interface that optimizers must follow in this framework
+	"""
+	@abstractmethod
+	def __init__(self, lr):
+		self._lr = lr
+
+	@abstractmethod
+	def step(self, W, gradient):
+		raise NotImplementedError
