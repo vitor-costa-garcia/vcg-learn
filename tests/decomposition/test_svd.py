@@ -1,4 +1,4 @@
-from vcglearn import SVD
+from vcglearn.decomposition import SVD
 from tests.core import BaseTest
 
 class TestSVD(BaseTest):
