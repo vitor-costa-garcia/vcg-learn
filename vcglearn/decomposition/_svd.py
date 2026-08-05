@@ -8,6 +8,7 @@ class SVD(BaseEstimator):
 	a representation of a matrix A in the form A = USV^T, where U and V are orthogonal matrices
 	and S is a diagonal matrix of singular values.
 
+	Methods:
 	fit(X, y): Computes the SVD of a matrix X. (y has no utility here)
 	predict(X, y) -> U, S, V^T: Returns the result of SVD 
 	"""

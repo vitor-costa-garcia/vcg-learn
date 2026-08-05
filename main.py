@@ -1,20 +1,36 @@
-from vcglearn.decomposition import SVD
+from vcglearn.linear_model import LinearRegression, LeastSquares
 import numpy as np
 
 
 
 if __name__ == "__main__":
+	X = np.array([
+	    [1.0],
+	    [2.0],
+	    [3.0],
+	    [4.0],
+	    [5.0]
+	])
 
-	A = np.array([
-	    [1, 2, 3],
-	    [2, 4, 6],
-	    [3, 6, 9],
-	    [4, 8, 12]
-	], dtype=float)
-	print("Initial matrix:\n", A, "\n")
-	svd = SVD()
-	U, sigma, Vt = svd.fit_predict(A, 0)
-	print(U, sigma, Vt)
+	y = np.array([
+	    3.0,
+	    5.0,
+	    7.0,
+	    9.0,
+	    11.0
+	])
 
-	A_reconstructed = U @ sigma @ Vt
-	print("Reconstructed matrix:\n", A_reconstructed, "\n")
+	model = LinearRegression(method=LeastSquares())
+
+	model.fit(X, y)
+
+	X_test = np.array([
+	    [6.0],
+	    [7.0],
+	    [8.0]
+	])
+
+	predictions = model.predict(X_test)
+	weights = model._w
+
+	print(predictions, weights)
