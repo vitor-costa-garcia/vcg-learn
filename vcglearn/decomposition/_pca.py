@@ -1,5 +1,6 @@
 from ..core import BaseTransformer
 from . import SVD
+import numpy as np
 
 class PCA(BaseTransformer):
 	def __init__(self, n_components):
@@ -17,11 +18,12 @@ class PCA(BaseTransformer):
 		svd = SVD()
 		U, S, V_t = svd.fit_transform(cov_mat)
 		self._proj = V_t
+		self._explained_var = np.diag(S)[:self._n_components]
 
 		#Allow transform
 		self._computed = True
 
-	def transform(self, X, y = None):
+	def transform(self, X = None, y = None):
 		if self._computed:
 			return self._proj[:self._n_components, :] @ X
 
