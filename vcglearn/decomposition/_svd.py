@@ -1,8 +1,8 @@
 import numpy as np
 
-from ..core import BaseEstimator, InputPlaceHolder
+from ..core import BaseTransformer
 
-class SVD(BaseEstimator):
+class SVD(BaseTransformer):
 	"""
 	SVD is a popular linear algebra method for decomposition, which consists in computing
 	a representation of a matrix A in the form A = USV^T, where U and V are orthogonal matrices
@@ -22,7 +22,7 @@ class SVD(BaseEstimator):
 
 		self._singval = None
 
-	def fit(self, X, y = InputPlaceHolder()):
+	def fit(self, X, y = None):
 		#Block predict method return until succesful SVD
 		self.computed = False
 		tol = 10e-5
@@ -59,7 +59,7 @@ class SVD(BaseEstimator):
 		#Allow predict method return
 		self.computed = True
 
-	def predict(self, X = InputPlaceHolder(), y = InputPlaceHolder()):
+	def transform(self, X = None, y = None):
 		if self.computed:
 			return self._U_r, self._sigma_r, self._V_r.T
 
