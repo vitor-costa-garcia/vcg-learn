@@ -23,7 +23,7 @@ class PCA(BaseTransformer):
 
 	def transform(self, X, y = None):
 		if self._computed:
-			return self._proj[:, :self._n_components] @ X
+			return self._proj[:self._n_components, :] @ X
 
 	def _compute_covmat(self, X):
 		return X @ X.T
